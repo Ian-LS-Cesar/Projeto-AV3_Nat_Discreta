@@ -18,15 +18,17 @@ def pagarEstacionamento():
         
         if (totalMinutosFinais > totalMinutosFinais):
             totalMinutos = totalMinutosFinais - totalMinutosIniciais
+            totalHoras = totalMinutos // 60
             
         elif (totalMinutosFinais < totalMinutosIniciais):
             totalMinutos = totalMinutosIniciais - totalMinutosFinais
+            totalHoras = totalMinutos // 60
             
         else:
             return valorEstacionamento
     
     #Ver qual o valor a ser pago
-    if(totalMinutos > 15):
+    if(totalMinutos > 15 ):
         pass
     else:
         return valorEstacionamento
