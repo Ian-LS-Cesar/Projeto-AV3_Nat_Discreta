@@ -1,38 +1,43 @@
 
-
-
-def pagarEstacionamento():
+def Estacionamento():
     
-    horaInicial, minutoInicial = map(int, input("Digite o horário de chegada: ").split(":"))
-    horaFinal, minutoFinal = map(int, input("Digite o horário de saída: ").split(":"))
+    valor_fixo, valor_extra, total_estacionamento = 5, 3, 0
     
-    valorEstacionamento == 0 
     
-    totalMinutosIniciais = (horaInicial * 60) + minutoInicial
-    totalMinutosFinais = (horaFinal * 60) + minutoFinal
+    hora_chegada, minuto_chegada = map(int, input("Hora de chegada: ").split(":"))
+    hora_saida, minuto_saida = map(int, input("\nHora de saída: ").split(":"))
     
-    # Transformar o tempo total em minutos
-    if (horaInicial > horaFinal):
-        totalMinutosFinais+= 1440
-    else:
-        
-        if (totalMinutosFinais > totalMinutosFinais):
-            totalMinutos = totalMinutosFinais - totalMinutosIniciais
-            totalHoras = totalMinutos // 60
-            
-        elif (totalMinutosFinais < totalMinutosIniciais):
-            totalMinutos = totalMinutosIniciais - totalMinutosFinais
-            totalHoras = totalMinutos // 60
-            
+    if (hora_chegada < 0 or hora_saida < 0 or hora_chegada > 23 or hora_saida > 23 or minuto_chegada < 0 or minuto_saida < 0 or minuto_chegada > 59 or minuto_saida > 59):
+        print("Hora inválida digitada, tente novamente:\n")
+        Estacionamento()
+    
+    # Conversão do tempo
+    tempo_chegada_em_minutos = hora_chegada * 60 + minuto_chegada
+    tempo_saida_em_minutos = hora_saida * 60 + minuto_saida
+    
+    #Caso a saída foi no dia seguinte
+    if tempo_saida_em_minutos < tempo_chegada_em_minutos:
+        tempo_saida_em_minutos += 24 * 60
+    
+    diferenca_tempo_em_minutos = tempo_saida_em_minutos - tempo_chegada_em_minutos
+    horas = diferenca_tempo_em_minutos // 60
+    minutos = diferenca_tempo_em_minutos % 60
+    
+    print(f"Tempo total no estacionamento: {horas:02d}:{minutos:02d}")
+    
+    #Taxa extra
+    tempo_extra = (horas - 3)
+    if (minutos != 0):
+        tempo_extra += 1
+    #Cálculo do estacionamento
+    
+    if(diferenca_tempo_em_minutos > 15):
+        if (horas <= 3):
+            total_estacionamento = valor_fixo
         else:
-            return valorEstacionamento
-    
-    #Ver qual o valor a ser pago
-    if(totalMinutos > 15 ):
-        pass
-    else:
-        return valorEstacionamento
-    
-    
-        
-    
+            total_estacionamento = valor_fixo + (tempo_extra * valor_extra)
+            
+    return print(f"\nO valor do estacionamento ficou R${total_estacionamento:.2f}")
+
+
+Estacionamento()
