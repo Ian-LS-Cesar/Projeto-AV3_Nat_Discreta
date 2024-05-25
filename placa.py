@@ -1,3 +1,5 @@
+# 9/26
+
 # ceara:    HTX - HZA ok
 #           NQL - NRE ok 
 #           NUM - NVF ok 
@@ -56,7 +58,7 @@ def identificarEstado(placa):
 
         case 'N':
             #            NQ L, M, ..., Y, Z                                     NR A, B, C, D, E                            NU M, N, ..., Y, Z                                   NV A, B, C, D, E, F
-            if (segundaLetra == 'Q' and terceiraLetra >= 'L') or (segundaLetra == 'R' and terceiraLetra <= E) or (segundaLetra == 'U' and terceiraLetra >= 'M') or (segundaLetra == 'V' and terceiraLetra <= 'F'):
+            if (segundaLetra == 'Q' and terceiraLetra >= 'L') or (segundaLetra == 'R' and terceiraLetra <= 'E') or (segundaLetra == 'U' and terceiraLetra >= 'M') or (segundaLetra == 'V' and terceiraLetra <= 'F'):
                 estado = CE
             #                           NH A, B, ..., S, T                                              NM P, Q, ..., Y, Z                              NN A, B, ..., H, I                                   NW S, T, ..., Y, Z                                 NX A, B, ..., P, Q
             elif (segundaLetra == 'H' and terceiraLetra <= 'A' and terceiraLetra <= 'T') or (segundaLetra == 'M' and terceiraLetra >= 'P') or (segundaLetra == 'N' and terceiraLetra <= 'I') or (segundaLetra == 'W' and terceiraLetra >= 'S') or (segundaLetra == 'X' and terceiraLetra <= 'Q'):
