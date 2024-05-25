@@ -1,4 +1,10 @@
 
+def funcaoTeto(horas, minutos):
+    tempo_extra = (horas - 3)
+    if (minutos != 0):
+        tempo_extra += 1
+    return tempo_extra
+
 def Estacionamento():
     
     valor_fixo, valor_extra, total_estacionamento = 5, 3, 0
@@ -25,19 +31,16 @@ def Estacionamento():
     
     print(f"Tempo total no estacionamento: {horas:02d}:{minutos:02d}")
     
-    #Taxa extra
-    tempo_extra = (horas - 3)
-    if (minutos != 0):
-        tempo_extra += 1
     #Cálculo do estacionamento
     
     if(diferenca_tempo_em_minutos > 15):
         if (horas <= 3):
             total_estacionamento = valor_fixo
         else:
-            total_estacionamento = valor_fixo + (tempo_extra * valor_extra)
+            total_estacionamento = valor_fixo + (funcaoTeto(horas,minutos) * valor_extra)
             
     return print(f"\nO valor do estacionamento ficou R${total_estacionamento:.2f}")
 
 
+        
 Estacionamento()
