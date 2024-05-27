@@ -27,7 +27,7 @@ class Estacionamento:
 
             # a divisão é só estética, tambem deixa mais visível as vagas livres
             print(' | '.join(carro), end="")
-            print('---------')
+            print('\n---------')
 
     def adicionarCarro(self, linha, coluna, placa):
         if self.estacionamento[linha][coluna] == ' ':
@@ -105,6 +105,8 @@ class Estacionamento:
                 # coluna = int(input("Digite a coluna: "))
                 placa = int(input("Digite a placa: "))
                 self.removerCarro(placa)
+                from placa import identificarEstado
+                identificarEstado(placa)
             elif acao == 'sair':
                 break
             else:
