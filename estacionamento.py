@@ -5,7 +5,7 @@ class Estacionamento:
         self.linhas = linhas
         self.colunas = colunas
         # uma matriz pode ser simulada por uma list simples de linhas x colunas espaços
-        self.estacionamento = ['       ' for _ in range(linhas * colunas)]
+        self.estacionamento = ["       "] * (linhas * colunas)
         # as placas tem que ser armazenadas no estacionamento, pois nao necessariamente saberemos o local em que 
         # o carro estava estacionado, apenas sua placa, pensa como um leitor de placa na entrada e saída, e é a 
         # única informação que teremos, além do horario de chegada e saida, óbvio que para fins práticos nós vamos 
@@ -18,27 +18,30 @@ class Estacionamento:
         self.horarios_chegada = {}
 
     def mostrarEstacionamento(self):
+        print()
+        
         # itera por cada carro e sua posição
         for posicao, carro in enumerate(self.estacionamento):
             # se o resto da posição pela quantidade e colunas for 0, a linha acabou, entao pula pra próxima, mas isso
             # ocorre apenas após a posição 0
             if posicao % self.colunas == 0 and posicao != 0:
-                print()
+                print('\n-------------------------------------------------')
 
             # a divisão é só estética, tambem deixa mais visível as vagas livres
-            print(' | '.join(carro), end="")
-            print('\n---------')
+            print(carro, end=" | ")
+            
+            
 
     def adicionarCarro(self, linha, coluna, placa):
-        if self.estacionamento[linha][coluna] == ' ':
-            self.estacionamento[linha][coluna] = placa
+        if self.estacionamento[coluna + linha * self.colunas] == '       ':
+            self.estacionamento[coluna + linha * self.colunas] = placa
             # self.placas[(linha, coluna)] = placa
             hora_chegada = input("Hora de chegada (HH:MM): ")
             hora_chegada = list(map(int, hora_chegada.split(":")))
             self.horarios_chegada[placa] = hora_chegada
-            print(f"Carro com placa {placa} adicionado ao estacionamento na posição ({linha}, {coluna})")
+            print(f"\nCarro com placa {placa} adicionado ao estacionamento na posição ({linha}, {coluna})")
         else:
-            print("Vaga já ocupada!")
+            print("\nVaga já ocupada!")
 
     def removerCarro(self, placa):
         if placa in self.estacionamento:
@@ -48,10 +51,12 @@ class Estacionamento:
             hora_saida = input("Hora de saída (HH:MM): ")
             hora_saida = list(map(int, hora_saida.split(":")))
             hora_chegada = self.horarios_chegada.pop(placa)
-            self.pagarEstacionamento(hora_chegada[0], hora_chegada[1], hora_saida, placa)
-            print(f"\nCarro com placa {placa} removido do estacionamento na posição ({posicao % self.colunas}, {posicao / self.colunas}) e o valor do estacionamento foi pago")
+            self.pagarEstacionamento(hora_chegada, hora_saida, placa)
+            print(f"\nCarro com placa {placa} removido do estacionamento na posição ({posicao % self.colunas}, {int(posicao / self.colunas)}) e o valor do estacionamento foi pago")
+            from placa import identificarEstado
+            identificarEstado(placa)
         else:
-            print("Vaga já vazia!")
+            print(f"\nCarro com placa {placa} não se encontra no estacionamento")
 
     def funcaoTeto(self, horas, minutos):
         # tempo_extra = (horas - 3)
@@ -94,19 +99,18 @@ class Estacionamento:
     def executar(self):
         while True:
             self.mostrarEstacionamento()
-            acao = input("Digite 'adicionar' para adicionar um carro, 'remover' para remover um carro, ou 'sair' para sair: ")
+            acao = input("\n\nDigite 'adicionar' para adicionar um carro, 'remover' para remover um carro, ou 'sair' para sair: ")
             if acao == 'adicionar':
-                linha = int(input("Digite a linha: "))
+                linha = int(input("\nDigite a linha: "))
                 coluna = int(input("Digite a coluna: "))
                 placa = input("Digite a placa: ")
                 self.adicionarCarro(linha, coluna, placa)
             elif acao == 'remover':
                 # linha = int(input("Digite a linha: "))
                 # coluna = int(input("Digite a coluna: "))
-                placa = int(input("Digite a placa: "))
+                placa = input("\nDigite a placa: ")
                 self.removerCarro(placa)
-                from placa import identificarEstado
-                identificarEstado(placa)
+                
             elif acao == 'sair':
                 break
             else:
